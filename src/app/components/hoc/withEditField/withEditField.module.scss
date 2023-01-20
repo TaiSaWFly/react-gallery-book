@@ -1,0 +1,94 @@
+.with_edit_field {
+    position: relative;
+
+    &:hover {
+        .with_edit_field__edit {
+            opacity: 1;
+        }
+
+        .with_edit_field__edit_cover {
+            opacity: 1;
+        }
+    }
+}
+
+.with_edit_field__form_cover {
+    width: 145px;
+    margin-bottom: 10px;
+    //   & img {
+    //     display: block;
+    //     width: 100%;
+    //     height: 100%;
+    //   }
+}
+
+.with_edit_field__edit {
+    opacity: 0;
+    cursor: pointer;
+
+    position: absolute;
+    top: -10px;
+    right: 0;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        fill: rgb(47, 172, 22);
+    }
+}
+
+.with_edit_field__edit_cover {
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    cursor: pointer;
+    fill: rgb(247, 5, 5);
+
+    transition: all 0.2s ease-in-out;
+
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    &:hover {
+        fill: rgb(47, 172, 22);
+    }
+}
+
+.with_edit_field__form_actions {
+    margin-bottom: 20px;
+}
+
+.with_edit_field__form_check {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    fill: rgb(29, 88, 18);
+    cursor: pointer;
+
+    transition: fill 0.2s ease-in-out;
+
+    &:hover {
+        fill: rgb(77, 172, 22);
+    }
+}
+
+.with_edit_field__form_notcheck {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    fill: rgb(139, 29, 14);
+    cursor: pointer;
+}
+
+.with_edit_field__form_cancel {
+    width: 25px;
+    height: 25px;
+    fill: rgb(201, 97, 29);
+    cursor: pointer;
+
+    transition: fill 0.2s ease-in-out;
+    &:hover {
+        fill: rgb(172, 22, 127);
+    }
+}

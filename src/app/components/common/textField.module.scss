@@ -1,0 +1,16 @@
+.form_field {
+    margin-bottom: 10px;
+}
+
+.form_field__error {
+    margin-bottom: 10px;
+    & input {
+        border-color: rgb(226, 16, 16);
+    }
+}
+
+.form__error {
+    font-size: 1rem;
+    white-space: nowrap;
+    color: rgb(226, 16, 16);
+}

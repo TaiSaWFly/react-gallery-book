@@ -1,0 +1,67 @@
+.book {
+    flex-shrink: 0;
+    width: 147px;
+    margin: 10px;
+
+    overflow: hidden;
+    text-align: center;
+
+    border: 1px solid #b7b0b0;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #b7b0b0;
+
+    position: relative;
+}
+
+.book_cover {
+    margin-bottom: 10px;
+    height: 205px;
+
+    & img {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.book_info {
+    width: 145px;
+    padding: 5px;
+}
+
+.book_name {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+
+    & span {
+        margin-right: 5px;
+    }
+}
+
+.book_author {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+
+    & span {
+        margin-right: 5px;
+    }
+}
+
+.book_delete {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: rotate(90deg);
+        fill: rgb(212, 27, 27);
+    }
+}

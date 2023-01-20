@@ -1,0 +1,32 @@
+.with_edit_uploadimg {
+    position: relative;
+
+    &:hover {
+        .with_edit_uploadimg__action {
+            opacity: 1;
+        }
+    }
+}
+
+.with_edit_uploadimg__field {
+    width: 145px;
+    margin: 10px 0 10px 0;
+}
+
+.with_edit_uploadimg__action {
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    cursor: pointer;
+    fill: rgb(247, 5, 5);
+
+    transition: all 0.2s ease-in-out;
+
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    &:hover {
+        fill: rgb(47, 172, 22);
+    }
+}

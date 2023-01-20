@@ -1,0 +1,38 @@
+.render_books {
+    margin-top: 100px;
+    font-size: 1.5rem;
+}
+
+.render_books__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.render_books__add_book {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    fill: rgb(14, 133, 34);
+    cursor: pointer;
+
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1.5);
+    }
+}
+
+.render_books__add_book_active {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    fill: rgb(14, 133, 34);
+    cursor: pointer;
+    transform: scale(1.5);
+
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+        transform: scale(1);
+    }
+}
