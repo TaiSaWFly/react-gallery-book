@@ -2,18 +2,35 @@ import React, { useState, useEffect } from "react";
 import TextField from "../../common/TextField";
 import { ReactComponent as Edit } from "../../../../../node_modules/bootstrap-icons/icons/pencil-fill.svg";
 import style from "./withEditField.module.scss";
-import { returnSchema } from "../../../utils/returnSchema";
-import { useDispatch } from "react-redux";
-import { updateBook } from "../../../store/slice/books";
+import { IEditFormData, IFormErrors } from "../../../models/FormData";
+import { IFieldData } from "../../../models/FieldData";
 import EditFieldActions from "../../ui/EditFieldActions/EditFieldActions";
+import { returnSchema } from "../../../utils/returnSchema";
+import { useAppDispatch } from "../../../hooks/reduxHooks";
+import { updateBook } from "../../../store/slice/books";
+
+export enum FieldNameVariant {
+  name = "name",
+  author = "author",
+}
+
+interface WithEditFieldProps {
+  fieldName: FieldNameVariant;
+  _id: string;
+  name?: string;
+  author?: string;
+}
 
 const withEditField =
-  (Component) =>
-  ({ fieldName, ...props }) => {
-    const dispatch = useDispatch();
+  <T extends object>(
+    Component: React.ComponentType<T>
+  ): React.FC<T & WithEditFieldProps> =>
+  ({ fieldName, ...props }: WithEditFieldProps) => {
+    const dispatch = useAppDispatch();
+
     const [edit, setEdit] = useState(false);
-    const [data, setData] = useState(props);
-    const [errors, setErrors] = useState({});
+    const [data, setData] = useState<IEditFormData>(props);
+    const [errors, setErrors] = useState<IFormErrors>({});
 
     const schema = returnSchema(fieldName);
 
@@ -22,14 +39,14 @@ const withEditField =
       // eslint-disable-next-line
     }, [data]);
 
-    const handleChange = (target) => {
+    const handleChange = (target: IFieldData) => {
       setData((prevState) => ({
         ...prevState,
         [target.name]: target.value,
       }));
     };
 
-    const handleToggleEdit = () => {
+    const handleToggleEdit = (): void => {
       setEdit((prevState) => !prevState);
     };
 
@@ -38,17 +55,19 @@ const withEditField =
       setData(props);
     };
 
-    const validate = () => {
+    const validate = (): boolean => {
       schema
         .validate(data)
         .then(() => setErrors({}))
-        .catch((error) => setErrors({ [error.path]: error.message }));
+        .catch((error: IFormErrors) =>
+          setErrors({ [error.path]: error.message })
+        );
       return Object.keys(errors).length === 0;
     };
 
     const isValid = Object.keys(errors).length === 0;
 
-    const handleSubmit = (e) => {
+    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
       e.preventDefault();
       const isValid = validate();
       if (!isValid) return;
@@ -63,13 +82,13 @@ const withEditField =
           className={style.with_edit_field__edit}
         />
         {!edit ? (
-          <Component {...props} />
+          <Component {...(props as T)} />
         ) : (
           <form className={style.with_edit_field__form}>
             <TextField
               label="Изменить"
               name={fieldName}
-              value={data[fieldName]}
+              value={data[fieldName] || ""}
               error={errors[fieldName]}
               onChange={handleChange}
             />

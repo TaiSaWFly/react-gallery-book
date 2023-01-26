@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./renderBooks.module.scss";
 import Book from "../Book/Book";
-import { useDispatch, useSelector } from "react-redux";
+import { ReactComponent as AddBook } from "../../../../../node_modules/bootstrap-icons/icons/file-earmark-plus-fill.svg";
+import FormBook from "../FormBook/FormBook";
+import { IFormData } from "../../../models/FormData";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import {
   createBook,
   deleteBook,
   getBooks,
   loadBooks,
 } from "../../../store/slice/books";
-import { ReactComponent as AddBook } from "../../../../../node_modules/bootstrap-icons/icons/file-earmark-plus-fill.svg";
-import FormBook from "../FormBook/FormBook";
+import { IBook } from "../../../models/Book";
 
-const RenderBooks = () => {
-  const [addNewBook, setAddNewBook] = useState(false);
-  const dispatch = useDispatch();
-  const books = useSelector(getBooks());
+const RenderBooks: React.FC = () => {
+  const [addNewBook, setAddNewBook] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const books: IBook[] = useAppSelector(getBooks());
 
   useEffect(() => {
     dispatch(loadBooks());
     // eslint-disable-next-line
   }, []);
 
-  const handleToggleAddNewBook = () => {
+  const handleToggleAddNewBook = (): void => {
     setAddNewBook((prevState) => !prevState);
   };
 
-  const handleCancelAddNewBook = () => {
+  const handleCancelAddNewBook = (): void => {
     setAddNewBook(false);
   };
 
-  const handleDeleteBook = (_id) => {
+  const handleDeleteBook = (_id: string): void => {
     dispatch(deleteBook(_id));
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: IFormData) => {
     dispatch(createBook(data));
     setAddNewBook(false);
   };
@@ -46,7 +48,6 @@ const RenderBooks = () => {
               <Book key={book._id} data={book} {...{ handleDeleteBook }} />
             ))
           : "Loading..."}
-
         <AddBook
           onClick={handleToggleAddNewBook}
           className={

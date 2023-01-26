@@ -1,8 +1,25 @@
 import React from "react";
+import { IFieldData } from "../../models/FieldData";
 import style from "./textField.module.scss";
 
-const TextField = ({ name, label, value, error, onChange }) => {
-  const handleChange = ({ target }) => {
+interface TextFieldProps {
+  name: string;
+  label: string;
+  value: string;
+  error: string | undefined;
+  onChange: (target: IFieldData) => void;
+}
+
+const TextField: React.FC<TextFieldProps> = ({
+  name,
+  label,
+  value,
+  error,
+  onChange,
+}) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
     onChange({ name: target.name, value: target.value });
   };
 

@@ -1,38 +1,50 @@
 import React, { useEffect, useState } from "react";
+import { IFieldData } from "../../../models/FieldData";
+import { IFormData, IFormErrors } from "../../../models/FormData";
 import { addNewBookSchema } from "../../../utils/yupSchema";
 import TextField from "../../common/TextField";
 import UploadImage from "../../common/UploadImage";
 import style from "./formBook.module.scss";
 
-const initialState = {
+interface FormBookProps {
+  onSubmit: (data: IFormData) => void;
+  handleCancelAddNewBook: () => void;
+}
+
+const initialState: IFormData = {
   cover: "",
   name: "",
   author: "",
 };
 
-const FormBook = ({ onSubmit, handleCancelAddNewBook }) => {
-  const [data, setData] = useState(initialState);
-  const [errors, setErrors] = useState({});
+const FormBook: React.FC<FormBookProps> = ({
+  onSubmit,
+  handleCancelAddNewBook,
+}) => {
+  const [data, setData] = useState<IFormData>(initialState);
+  const [errors, setErrors] = useState<IFormErrors>({});
 
   useEffect(() => {
     validate();
     // eslint-disable-next-line
   }, [data]);
 
-  const handleChange = (target) => {
+  const handleChange = (target: IFieldData) => {
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value,
     }));
   };
 
-  const handleCancelEdit = () => {
+  const handleCancelEdit: React.MouseEventHandler<
+    HTMLButtonElement
+  > = (): void => {
     handleCancelAddNewBook();
     setData(initialState);
     setErrors({});
   };
 
-  const validate = () => {
+  const validate = (): boolean => {
     addNewBookSchema
       .validate(data)
       .then(() => setErrors({}))
@@ -42,7 +54,7 @@ const FormBook = ({ onSubmit, handleCancelAddNewBook }) => {
 
   const isValid = Object.keys(errors).length === 0;
 
-  const handleSubmit = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
@@ -58,7 +70,6 @@ const FormBook = ({ onSubmit, handleCancelAddNewBook }) => {
           onChange={handleChange}
         />
       </div>
-
       <TextField
         label="Название книги"
         name="name"
@@ -66,7 +77,6 @@ const FormBook = ({ onSubmit, handleCancelAddNewBook }) => {
         error={errors.name}
         onChange={handleChange}
       />
-
       <TextField
         label="Автор"
         name="author"

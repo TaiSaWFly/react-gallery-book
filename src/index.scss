@@ -9,12 +9,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background: rgb(62, 117, 220);
-background: linear-gradient(
-  45deg,
-  rgba(62, 117, 220, 1) 25%,
-  rgba(204, 137, 154, 1) 75%
-); */
+  background: rgb(62, 117, 220);
+  background: linear-gradient(
+    45deg,
+    rgba(62, 117, 220, 1) 25%,
+    rgba(204, 137, 154, 1) 75%
+  );
 }
 
 code {
@@ -26,6 +26,12 @@ code {
 *:after,
 *:before {
   box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
 }
 
 input {
@@ -77,4 +83,6 @@ button {
   max-width: 1270px;
   margin: 0 auto;
   padding: 0 15px;
+
+  height: 100vh;
 }
